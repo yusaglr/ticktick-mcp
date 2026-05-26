@@ -83,6 +83,10 @@ def format_task(task: Dict) -> str:
         for i, item in enumerate(items, 1):
             status = "✓" if item.get('status') == 1 else "□"
             formatted += f"{i}. [{status}] {item.get('title', 'No title')}\n"
+
+    # Add tags if available
+    if task.get('tags'):
+        formatted += f"Tags: {', '.join(task.get('tags'))}\n"
     
     return formatted
 
@@ -218,7 +222,8 @@ async def create_task(
     content: str = None, 
     start_date: str = None, 
     due_date: str = None, 
-    priority: int = 0
+    priority: int = 0,
+    tags: list = None
 ) -> str:
     """
     Create a new task in TickTick.
@@ -230,6 +235,7 @@ async def create_task(
         start_date: Start date in ISO format YYYY-MM-DDThh:mm:ss+0000 (optional)
         due_date: Due date in ISO format YYYY-MM-DDThh:mm:ss+0000 (optional)
         priority: Priority level (0: None, 1: Low, 3: Medium, 5: High) (optional)
+        tags: List of tags to add to the task (optional) e.g. ["work", "urgent"]
     """
     if not ticktick:
         if not initialize_client():
@@ -255,7 +261,8 @@ async def create_task(
             content=content,
             start_date=start_date,
             due_date=due_date,
-            priority=priority
+            priority=priority,
+            tags=tags
         )
         
         if 'error' in task:
@@ -274,7 +281,8 @@ async def update_task(
     content: str = None,
     start_date: str = None,
     due_date: str = None,
-    priority: int = None
+    priority: int = None,
+    tags: list = None
 ) -> str:
     """
     Update an existing task in TickTick.
@@ -287,6 +295,7 @@ async def update_task(
         start_date: New start date in ISO format YYYY-MM-DDThh:mm:ss+0000 (optional)
         due_date: New due date in ISO format YYYY-MM-DDThh:mm:ss+0000 (optional)
         priority: New priority level (0: None, 1: Low, 3: Medium, 5: High) (optional)
+        tags: List of tags to add to the task (optional) e.g. ["work", "urgent"]
     """
     if not ticktick:
         if not initialize_client():
@@ -313,7 +322,8 @@ async def update_task(
             content=content,
             start_date=start_date,
             due_date=due_date,
-            priority=priority
+            priority=priority,
+            tags=tags
         )
         
         if 'error' in task:

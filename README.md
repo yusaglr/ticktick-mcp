@@ -7,6 +7,7 @@ A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server for Ti
 - 📋 View all your TickTick projects and tasks
 - ✏️ Create new projects and tasks through natural language
 - 🔄 Update existing task details (title, content, dates, priority)
+- 🏷️ Add and manage tags on tasks
 - ✅ Mark tasks as complete
 - 🗑️ Delete tasks and projects
 - 🔄 Full integration with TickTick's open API
@@ -139,8 +140,8 @@ Once connected, you'll see the TickTick MCP server tools available in Claude, in
 | `get_project` | Get details about a specific project | `project_id` |
 | `get_project_tasks` | List all tasks in a project | `project_id` |
 | `get_task` | Get details about a specific task | `project_id`, `task_id` |
-| `create_task` | Create a new task | `title`, `project_id`, `content` (optional), `start_date` (optional), `due_date` (optional), `priority` (optional) |
-| `update_task` | Update an existing task | `task_id`, `project_id`, `title` (optional), `content` (optional), `start_date` (optional), `due_date` (optional), `priority` (optional) |
+| `create_task` | Create a new task | `title`, `project_id`, `content` (optional), `start_date` (optional), `due_date` (optional), `priority` (optional), `tags` (optional) |
+| `update_task` | Update an existing task | `task_id`, `project_id`, `title` (optional), `content` (optional), `start_date` (optional), `due_date` (optional), `priority` (optional), `tags` (optional) |
 | `complete_task` | Mark a task as complete | `project_id`, `task_id` |
 | `delete_task` | Delete a task | `project_id`, `task_id` |
 | `create_project` | Create a new project | `name`, `color` (optional), `view_mode` (optional) |
@@ -183,6 +184,12 @@ Here are some example prompts to use with Claude after connecting the TickTick M
 - "Mark the task 'Buy groceries' as complete"
 - "Create a new project called 'Vacation Planning' with a blue color"
 - "When is my next deadline in TickTick?"
+
+### Tags
+
+- "Create a task 'Read paper on transformers' with tags: learning, AI"
+- "Add the tag 'urgent' to my task about the project deadline"
+- "Create a shopping task and tag it as 'errands' and 'weekend'"
 
 ### Task Filtering Queries
 
